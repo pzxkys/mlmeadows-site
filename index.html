@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ML Meadows | Daily Moments</title>
+
+    <style>
+
+        :root {
+
+            --bg: #fdfcfb;
+
+            --text: #333;
+
+            --accent: #7b9acc;
+
+        }
+
+        body { font-family: 'Helvetica Neue', sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        header { padding: 4rem 2rem; text-align: center; }
+
+        h1 { font-weight: 300; letter-spacing: 2px; margin-bottom: 0.5rem; }
+
+        
+
+        /* Photo of the Day Section */
+
+        .daily-feature { max-width: 900px; margin: 0 auto 4rem auto; padding: 0 1rem; text-align: center; }
+
+        .daily-feature img { width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        .caption { margin-top: 1rem; font-style: italic; color: #666; }
+
+
+        /* Album Grid */
+
+        .album-section { max-width: 1100px; margin: 0 auto; padding: 2rem; border-top: 1px solid #eee; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+
+        .grid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 4px; cursor: pointer; transition: transform 0.2s; }
+
+        .grid img:hover { transform: scale(1.02); }
+
+
+        footer { text-align: center; padding: 4rem; font-size: 0.9rem; opacity: 0.6; }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <h1>ML MEADOWS</h1>
+
+    <p>A daily glimpse through the lens.</p>
+
+</header>
+
+
+<section class="daily-feature">
+
+    <h2>Photo of the Day</h2>
+
+    <img src="daily.jpg" alt="Photo of the day">
+
+    <p class="caption">January 16, 2026 — Afternoon light over the valley.</p>
+
+</section>
+
+
+<section class="album-section">
+
+    <h3>The Archive</h3>
+
+    <div class="grid">
+
+        <img src="photo1.jpg" alt="Archive photo">
+
+        <img src="photo2.jpg" alt="Archive photo">
+
+        <img src="photo3.jpg" alt="Archive photo">
+
+        <img src="photo4.jpg" alt="Archive photo">
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    &copy; 2026 ML Meadows. All rights reserved.
+
+</footer>
+
+
+</body>
+
+</html>
+
