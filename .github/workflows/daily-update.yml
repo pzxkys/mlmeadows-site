@@ -14,24 +14,27 @@ jobs:
       - name: Install ImageMagick
         run: sudo apt-get install -y imagemagick
 
-      - name: Process Image
+      - name: Process Image and Timestamp
         run: |
-          # 1. Move old daily to archive (rotation)
-          mv daily.jpg photo1.jpg || font-family: sans-serif;
+          # 1. Rotate archives
+          mv photo3.jpg photo4.jpg || true
+          mv photo2.jpg photo3.jpg || true
+          mv photo1.jpg photo2.jpg || true
+          mv daily.jpg photo1.jpg || true
           
-          # 2. Convert new upload (HEIC or JPG) to the new daily.jpg
-          # This grabs the newest file in the uploads folder
+          # 2. Convert new upload
           NEW_FILE=$(ls -t uploads/ | head -1)
           convert "uploads/$NEW_FILE" -quality 80 daily.jpg
-          
-          # 3. Clean up the uploads folder
           rm "uploads/$NEW_FILE"
+          
+          # 3. Create Timestamp (Format: Jan 21, 2026 - 05:45 PM)
+          TIMESTAMP=$(date +'%b %d, %Y - %I:%M %p')
+          sed -i "s/ID=\"update-time\">.*<\/span>/ID=\"update-time\">$TIMESTAMP<\/span>/g" index.html
 
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "Automated daily photo update"
+          git commit -m "Automated daily update with timestamp"
           git push
-          
