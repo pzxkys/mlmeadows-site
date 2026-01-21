@@ -1,0 +1,37 @@
+name: Process Daily Photo
+on:
+  push:
+    paths:
+      - 'uploads/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install ImageMagick
+        run: sudo apt-get install -y imagemagick
+
+      - name: Process Image
+        run: |
+          # 1. Move old daily to archive (rotation)
+          mv daily.jpg photo1.jpg || font-family: sans-serif;
+          
+          # 2. Convert new upload (HEIC or JPG) to the new daily.jpg
+          # This grabs the newest file in the uploads folder
+          NEW_FILE=$(ls -t uploads/ | head -1)
+          convert "uploads/$NEW_FILE" -quality 80 daily.jpg
+          
+          # 3. Clean up the uploads folder
+          rm "uploads/$NEW_FILE"
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Automated daily photo update"
+          git push
+          
