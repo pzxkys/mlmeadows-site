@@ -14,7 +14,7 @@ jobs:
       - name: Install ImageMagick
         run: sudo apt-get install -y imagemagick
 
-      - name: Process Image and Timestamp
+      - name: Process Image, Timestamp, and Cache Buster
         run: |
           # 1. Rotate archives
           mv photo3.jpg photo4.jpg || true
@@ -27,14 +27,18 @@ jobs:
           convert "uploads/$NEW_FILE" -quality 80 daily.jpg
           rm "uploads/$NEW_FILE"
           
-          # 3. Create Timestamp (Format: Jan 21, 2026 - 05:45 PM)
+          # 3. Create Timestamp
           TIMESTAMP=$(date +'%b %d, %Y - %I:%M %p')
           sed -i "s/ID=\"update-time\">.*<\/span>/ID=\"update-time\">$TIMESTAMP<\/span>/g" index.html
+          
+          # 4. Update Cache Buster (changes ?v=1 to ?v=[current seconds])
+          CACHE_ID=$(date +%s)
+          sed -i "s/daily.jpg?v=[0-9]*/daily.jpg?v=$CACHE_ID/g" index.html
 
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "Automated daily update with timestamp"
+          git commit -m "Automated update: Image processed and cache busted"
           git push
