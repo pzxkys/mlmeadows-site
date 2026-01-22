@@ -29,7 +29,10 @@ jobs:
           
           # 3. Create Timestamp
           TIMESTAMP=$(date +'%b %d, %Y - %I:%M %p')
-          sed -i "s/id=\"update-time\">.*<\/span>/id=\"update-time\">$TIMESTAMP<\/span>/g" index.html
+          # 3. Create Timestamp
+          TIMESTAMP=$(date +'%b %d, %Y - %I:%M %p')
+          sed -i "s/id=[\"']update-time[\"']>.*<\/span>/id=\"update-time\">$TIMESTAMP<\/span>/g" index.html
+
 
           
           # 4. Update Cache Buster (changes ?v=1 to ?v=[current seconds])
